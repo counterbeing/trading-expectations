@@ -2,6 +2,11 @@ import Vue from 'vue';
 import App from './App.vue';
 import { format, toDate } from 'date-fns';
 
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
+
+Vue.use(Buefy);
+
 import Vue2Filters from 'vue2-filters';
 
 import VueApexCharts from 'vue-apexcharts';

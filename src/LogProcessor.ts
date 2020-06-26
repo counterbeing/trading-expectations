@@ -24,9 +24,15 @@ const calculate = (
 ) => {
   let currentBank = bank;
   const bankHistory = [bank];
+
   for (let i = 0; i < iterations; i++) {
+    if (currentBank <= 0) {
+      bankHistory.push(currentBank);
+      continue;
+    }
     currentBank =
       runTrade(currentBank, plRatio, accuracy, risk) - commission * 2;
+
     bankHistory.push(currentBank);
   }
   return bankHistory;

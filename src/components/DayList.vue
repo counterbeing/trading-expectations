@@ -1,8 +1,29 @@
 <template>
   <div class="columns">
     <div class="column-1">
-      <label for="bank-input">Bank</label>
-      <input type="number" v-model="bank" id="bank-input" placeholder="Bank" />
+      <br />
+      <b-field label="Number of Trades">
+        <b-slider
+          :min="10"
+          :max="10000"
+          aria-label="Number of Trades"
+          :tooltip="false"
+          v-model="iterations"
+        >
+          <b-slider-tick :value="10">10</b-slider-tick>
+          <b-slider-tick :value="100">100</b-slider-tick>
+          <b-slider-tick :value="500">500</b-slider-tick>
+          <b-slider-tick :value="1000">1000</b-slider-tick>
+          <b-slider-tick :value="5000">5000</b-slider-tick>
+        </b-slider>
+      </b-field>
+      <b-field label="Starting Bank">
+        <b-slider v-model="bank" size="is-large" :value="20" :min="100" :max="10000"></b-slider>
+      </b-field>
+
+      <b-field label="Accurachy">
+        <b-slider v-model="accuracy" size="is-large" step=".001" :value="0.5" :min="0" :max="1"></b-slider>
+      </b-field>
       <br />
 
       <label for="plRatio-input">P/L Ratio</label>
@@ -36,9 +57,9 @@
         </thead>
         <tbody>
           <tr v-for="(amount, i) in test" :key="`amount-${i}`">
-            <td>{{amount | currency}}</td>
+            <td>{{ amount | currency }}</td>
             <td>
-              <profit-or-loss :amount="amount - test[i-1]" />
+              <profit-or-loss :amount="amount - test[i - 1]" />
             </td>
           </tr>
         </tbody>
@@ -87,6 +108,7 @@ export default class DayList extends Vue {
 
 .column-1 {
   flex: 1;
+  padding: 50px;
 }
 
 .column-2 {

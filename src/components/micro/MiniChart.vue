@@ -11,7 +11,42 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 @Component({})
 export default class MiniChart extends Vue {
   @Prop() private data!: number[];
-  chartOptions: any = {};
+  chartOptions: any = {
+    grid: {
+      show: false,
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      // enabled: false,
+    },
+    xaxis: {
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+
+    yaxis: {
+      labels: {
+        // show: false,
+        formatter: function (value: number): string {
+          return "$" + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+        },
+      },
+    },
+
+    chart: {
+      id: "vuechart-example",
+
+      toolbar: {
+        show: false,
+      },
+    },
+  };
 
   get series(): any {
     return [
@@ -20,46 +55,6 @@ export default class MiniChart extends Vue {
         data: this.data,
       },
     ];
-  }
-
-  @Watch("data")
-  onPropertyChanged(): void {
-    this.chartOptions = {
-      grid: {
-        show: false,
-      },
-      legend: {
-        show: false,
-      },
-      tooltip: {
-        // enabled: false,
-      },
-      xaxis: {
-        labels: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-      },
-
-      yaxis: {
-        labels: {
-          // show: false,
-          formatter: function (value: number): string {
-            return "$" + value;
-          },
-        },
-      },
-
-      chart: {
-        id: "vuechart-example",
-
-        toolbar: {
-          show: false,
-        },
-      },
-    };
   }
 }
 </script>
