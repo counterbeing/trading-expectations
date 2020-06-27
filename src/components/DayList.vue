@@ -77,10 +77,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(amount, i) in test" :key="`amount-${i}`">
+          <tr v-for="(amount, i) in analyze.averageResult" :key="`amount-${i}`">
             <td>{{ amount | currency }}</td>
             <td>
-              <profit-or-loss :amount="amount - test[i - 1]" />
+              <profit-or-loss :amount="amount - analyze.averageResult[i - 1]" />
             </td>
           </tr>
         </tbody>
@@ -94,8 +94,8 @@
         :risk="risk"
         :accuracy="accuracy"
       />
-      <mini-chart :data="test"></mini-chart>
-      <h1>{{analyze}}</h1>
+      <mini-chart :data="analyze.averageResult"></mini-chart>
+      <AnalysisResults :results="analyze" :iterations="iterations" :bank="bank" />
     </div>
   </div>
 </template>
@@ -108,9 +108,11 @@ import ProfitOrLoss from "./micro/ProfitOrLoss.vue";
 import MiniChart from "./micro/MiniChart.vue";
 import TopTiles from "./micro/TopTiles.vue";
 import { max, min, mean } from "lodash";
+import { AnalysisResult } from "./types";
+import AnalysisResults from "./micro/AnalysisResults.vue";
 
 @Component({
-  components: { ProfitOrLoss, MiniChart, TopTiles },
+  components: { ProfitOrLoss, MiniChart, TopTiles, AnalysisResults },
 })
 export default class DayList extends Vue {
   public bank = 2500;
@@ -130,14 +132,9 @@ export default class DayList extends Vue {
     );
   }
 
-  get analyze(): {
-    blowUps: number;
-    max: number | undefined;
-    min: number | undefined;
-    average: number | undefined;
-  } {
+  get analyze(): AnalysisResult {
     const results = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1000; i++) {
       const result = calculate(
         this.bank,
         this.plRatio,
@@ -148,18 +145,25 @@ export default class DayList extends Vue {
       );
       results.push({
         finish: result[result.length - 1],
+        data: result,
       });
     }
+    const averageFinish = mean(results.map((r) => r.finish));
+    const averageResult = results.reduce((prev, curr) =>
+      Math.abs(curr.finish - averageFinish) <
+      Math.abs(prev.finish - averageFinish)
+        ? curr
+        : prev
+    );
+    // const percentProfitable =
     return {
       blowUps: results.filter((r) => r.finish == 0).length,
-      max: max(results.map((r) => r.finish)),
-      min: min(results.map((r) => r.finish)),
-      average: mean(results.map((r) => r.finish)),
+      max: max(results.map((r) => r.finish)) || 0,
+      min: min(results.map((r) => r.finish)) || 0,
+      averageFinish,
+      averageResult: averageResult.data,
+      percentProfitable: 1,
     };
-  }
-
-  get lastBankAmount(): number {
-    return this.test[this.test.length - 1];
   }
 }
 </script>
