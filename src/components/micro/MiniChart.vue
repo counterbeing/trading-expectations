@@ -31,6 +31,7 @@ export default class MiniChart extends Vue {
     },
 
     yaxis: {
+      forceNiceScale: true,
       min: 0,
       labels: {
         // show: false,
@@ -61,6 +62,11 @@ export default class MiniChart extends Vue {
 </script>
 
 <style scoped lang="scss">
+.mini-chart {
+  background-color: rgb(1, 1, 1, 0.1);
+  margin: 40px 0;
+  border-radius: 10px;
+}
 pre {
   display: none;
   background: black;
