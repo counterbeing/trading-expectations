@@ -68,6 +68,61 @@
           </b-slider>
         </b-field>
       </div>
+      <div class="about">
+        <h1>Expectationometer</h1>
+        <p>
+          The basics of day trading make it a numbers game. In simplest terms,
+          you run a number of trades, and try to have your wins end up larger
+          than your losses. Here is
+          <a
+            href="https://www.youtube.com/watch?v=MGglyvc8d58"
+          >
+            a good
+            explanation
+          </a> of how it works.
+        </p>
+        <p>
+          This tool is not designed to tell you how much you will make, or
+          even how much you can make. It's much too simple for that and doesn't
+          take many things into account. But what it can tell you what
+          <b>absolutely will not work</b>.
+        </p>
+
+        <h2>Instructions</h2>
+        <ul>
+          <li>Set any values you already know</li>
+          <li>Set reasonable targets for other values</li>
+          <li>Determine if your setup is incapable of making money</li>
+          <li>Adjust values to see what your goals should be for making money</li>
+        </ul>
+
+        <h2>How it Works</h2>
+        <p>
+          After you've entered all of your variables, a virtual weighted coin
+          is tossed for each of your specified trades. The outcome of this coin
+          toss determines if money will be taken from or added to your bank
+          account, multiplied by your profit and loss ratio. This is run 1000
+          times to ensure you're not just being shown the one out of 1000
+          result that doesn't reflect what is likely to happen.
+        </p>
+        <p>
+          Once we have a thousand sets of result we pick an average one. We
+          also look for the maximums and minimums. And also determine how
+          likely this approach is to blow up an account.
+        </p>
+
+        <h2>Disclaimer</h2>
+        <p>
+          This is not trading advice, and should't be taken as such. Just
+          something to potentially warn you that you'll likely flop, if you're
+          thinking of getting into the market with a small account. I'm also
+          not sure if this information is accurate, if you think not, please
+          let me know.
+          <a
+            href="mailto:he@corylogan.com"
+          >he@corylogan.com</a>
+        </p>
+      </div>
     </div>
     <div class="column-2">
       <TopTiles
@@ -195,6 +250,7 @@ export default class DayList extends Vue {
 }
 
 table {
+  height: 100vh;
   thead td {
     padding: 10px;
     font-weight: bold;
@@ -211,6 +267,26 @@ table {
   td {
     text-align: right;
     padding: 2px 10px;
+  }
+}
+
+.about {
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    padding-top: 10px;
+    font-size: 20px;
+    text-align: left;
+  }
+  p {
+    text-align: left;
+    margin: 10px 0;
+  }
+  ul {
+    text-align: left;
+    list-style-type: decimal-leading-zero;
   }
 }
 </style>
