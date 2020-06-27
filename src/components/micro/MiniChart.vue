@@ -1,7 +1,7 @@
 <template>
   <div class="mini-chart">
     <!-- <pre>{{ JSON.stringify(data) }}</pre> -->
-    <apexchart width="100%" height="400" type="line" :options="chartOptions" :series="series"></apexchart>
+    <apexchart width="100%" height="600" type="line" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default class MiniChart extends Vue {
     },
 
     yaxis: {
+      min: 0,
       labels: {
         // show: false,
         formatter: function (value: number): string {

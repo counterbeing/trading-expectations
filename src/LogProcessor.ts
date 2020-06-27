@@ -33,7 +33,7 @@ const calculate = (
 
   for (let i = 0; i < iterations; i++) {
     if (currentBank <= 0) {
-      bankHistory.push(currentBank);
+      bankHistory.push(0);
       continue;
     }
     currentBank =

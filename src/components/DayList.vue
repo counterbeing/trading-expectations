@@ -87,45 +87,15 @@
       </table>
     </div>
     <div class="column-2">
-      <div class="tile is-ancestor">
-        <div class="tile is-vertical is-12">
-          <div class="tile">
-            <div class="tile is-parent is-vertical is-4">
-              <article class="tile is-child notification is-info">
-                <p class="title">{{bank | currency}}</p>
-                <p class="subtitle">Starting Bank</p>
-              </article>
-              <article class="tile is-child notification is-info">
-                <p class="title">{{iterations}}</p>
-                <p class="subtitle">Number of Trades</p>
-              </article>
-            </div>
-            <div class="tile is-parent is-vertical is-4">
-              <article class="tile is-child notification is-info">
-                <p class="title">{{plRatio}} to 1</p>
-                <p class="subtitle">Profit and Loss Ratio</p>
-              </article>
-              <article class="tile is-child notification is-info">
-                <p class="title">{{risk}}</p>
-                <p class="subtitle">Risk per Trade</p>
-              </article>
-            </div>
-
-            <div class="tile is-parent is-vertical is-4">
-              <article class="tile is-child notification is-info">
-                <p class="title">{{accuracy}}</p>
-                <p class="subtitle">Accuracy</p>
-              </article>
-              <article class="tile is-child notification is-info">
-                <p class="title">{{ 3.95 | currency }}</p>
-                <p class="subtitle">Commission per Trade</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <TopTiles
+        :bank="bank"
+        :iterations="iterations"
+        :plRatio="plRatio"
+        :risk="risk"
+        :accuracy="accuracy"
+      />
       <mini-chart :data="test"></mini-chart>
+      <h1>{{analyze}}</h1>
     </div>
   </div>
 </template>
@@ -136,12 +106,14 @@ import { Component, Vue } from "vue-property-decorator";
 import calculate from "../LogProcessor";
 import ProfitOrLoss from "./micro/ProfitOrLoss.vue";
 import MiniChart from "./micro/MiniChart.vue";
+import TopTiles from "./micro/TopTiles.vue";
+import { max, min, mean } from "lodash";
 
 @Component({
-  components: { ProfitOrLoss, MiniChart },
+  components: { ProfitOrLoss, MiniChart, TopTiles },
 })
 export default class DayList extends Vue {
-  public bank = 800;
+  public bank = 2500;
   public plRatio = 2;
   public accuracy = 0.5;
   public risk = 0.02;
@@ -157,6 +129,35 @@ export default class DayList extends Vue {
       this.iterations
     );
   }
+
+  get analyze(): {
+    blowUps: number;
+    max: number | undefined;
+    min: number | undefined;
+    average: number | undefined;
+  } {
+    const results = [];
+    for (let i = 0; i < 100; i++) {
+      const result = calculate(
+        this.bank,
+        this.plRatio,
+        this.accuracy,
+        this.risk,
+        this.comission,
+        this.iterations
+      );
+      results.push({
+        finish: result[result.length - 1],
+      });
+    }
+    return {
+      blowUps: results.filter((r) => r.finish == 0).length,
+      max: max(results.map((r) => r.finish)),
+      min: min(results.map((r) => r.finish)),
+      average: mean(results.map((r) => r.finish)),
+    };
+  }
+
   get lastBankAmount(): number {
     return this.test[this.test.length - 1];
   }
