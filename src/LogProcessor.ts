@@ -1,3 +1,7 @@
+type Result = {
+  bank: number;
+};
+
 const runTrade = (
   bank: number,
   plRatio: number,

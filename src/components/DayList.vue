@@ -87,6 +87,44 @@
       </table>
     </div>
     <div class="column-2">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-12">
+          <div class="tile">
+            <div class="tile is-parent is-vertical is-4">
+              <article class="tile is-child notification is-info">
+                <p class="title">{{bank | currency}}</p>
+                <p class="subtitle">Starting Bank</p>
+              </article>
+              <article class="tile is-child notification is-info">
+                <p class="title">{{iterations}}</p>
+                <p class="subtitle">Number of Trades</p>
+              </article>
+            </div>
+            <div class="tile is-parent is-vertical is-4">
+              <article class="tile is-child notification is-info">
+                <p class="title">{{plRatio}} to 1</p>
+                <p class="subtitle">Profit and Loss Ratio</p>
+              </article>
+              <article class="tile is-child notification is-info">
+                <p class="title">{{risk}}</p>
+                <p class="subtitle">Risk per Trade</p>
+              </article>
+            </div>
+
+            <div class="tile is-parent is-vertical is-4">
+              <article class="tile is-child notification is-info">
+                <p class="title">{{accuracy}}</p>
+                <p class="subtitle">Accuracy</p>
+              </article>
+              <article class="tile is-child notification is-info">
+                <p class="title">{{ 3.95 | currency }}</p>
+                <p class="subtitle">Commission per Trade</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <mini-chart :data="test"></mini-chart>
     </div>
   </div>
@@ -119,12 +157,15 @@ export default class DayList extends Vue {
       this.iterations
     );
   }
+  get lastBankAmount(): number {
+    return this.test[this.test.length - 1];
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .spaced-input {
-  padding: 20px 0;
+  padding: 30px 0;
 }
 .columns {
   display: flex;
@@ -136,6 +177,7 @@ export default class DayList extends Vue {
 }
 
 .column-2 {
+  padding: 50px;
   flex: 1;
   flex: 20%;
 }
