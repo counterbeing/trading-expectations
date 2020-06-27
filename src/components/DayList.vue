@@ -1,66 +1,74 @@
 <template>
   <div class="columns">
     <div class="column-1">
-      <br />
-      <b-field label="Number of Trades">
-        <b-slider
-          :min="10"
-          :max="500"
-          aria-label="Number of Trades"
-          :tooltip="false"
-          v-model="iterations"
-        >
-          <b-slider-tick :value="10">10</b-slider-tick>
-          <b-slider-tick :value="100">100</b-slider-tick>
-          <b-slider-tick :value="200">200</b-slider-tick>
-          <b-slider-tick :value="300">300</b-slider-tick>
-          <b-slider-tick :value="400">400</b-slider-tick>
-          <b-slider-tick :value="500">500</b-slider-tick>
-        </b-slider>
-      </b-field>
-      <b-field label="Starting Bank">
-        <b-slider v-model="bank" :value="20" :min="100" :max="10000">
-          <b-slider-tick :value="20">$20</b-slider-tick>
-          <b-slider-tick :value="2500">$2,500</b-slider-tick>
-          <b-slider-tick :value="5000">$5,000</b-slider-tick>
-          <b-slider-tick :value="7500">$7,500</b-slider-tick>
-          <b-slider-tick :value="10000">$10,000</b-slider-tick>
-        </b-slider>
-      </b-field>
+      <div class="spaced-input">
+        <b-field label="Number of Trades">
+          <b-slider
+            :min="10"
+            :max="500"
+            aria-label="Number of Trades"
+            :tooltip="false"
+            v-model="iterations"
+          >
+            <b-slider-tick :value="10">10</b-slider-tick>
+            <b-slider-tick :value="100">100</b-slider-tick>
+            <b-slider-tick :value="200">200</b-slider-tick>
+            <b-slider-tick :value="300">300</b-slider-tick>
+            <b-slider-tick :value="400">400</b-slider-tick>
+            <b-slider-tick :value="500">500</b-slider-tick>
+          </b-slider>
+        </b-field>
+      </div>
 
-      <b-field label="Accuracy">
-        <b-slider v-model="accuracy" step=".001" :value="0.5" :min="0" :max="1">
-          <b-slider-tick :value="0">0%</b-slider-tick>
-          <b-slider-tick :value=".25">25%</b-slider-tick>
-          <b-slider-tick :value=".5">50%</b-slider-tick>
-          <b-slider-tick :value=".75">75%</b-slider-tick>
-          <b-slider-tick :value="1">100%</b-slider-tick>
-        </b-slider>
-      </b-field>
-      <br />
+      <div class="spaced-input">
+        <b-field label="Starting Bank">
+          <b-slider v-model="bank" :value="20" :min="100" :max="10000">
+            <b-slider-tick :value="20">$20</b-slider-tick>
+            <b-slider-tick :value="2500">$2,500</b-slider-tick>
+            <b-slider-tick :value="5000">$5,000</b-slider-tick>
+            <b-slider-tick :value="7500">$7,500</b-slider-tick>
+            <b-slider-tick :value="10000">$10,000</b-slider-tick>
+          </b-slider>
+        </b-field>
+      </div>
 
-      <b-field label="Profit and Loss Ratio">
-        <b-slider v-model="plRatio" step=".01" :value="2" :min="0" :max="10">
-          <b-slider-tick :value="1">1:1</b-slider-tick>
-          <b-slider-tick :value="2">2:1</b-slider-tick>
-          <b-slider-tick :value="3">3:1</b-slider-tick>
-          <b-slider-tick :value="4">4:1</b-slider-tick>
-          <b-slider-tick :value="5">5:1</b-slider-tick>
-          <b-slider-tick :value="6">6:1</b-slider-tick>
-          <b-slider-tick :value="7">7:1</b-slider-tick>
-          <b-slider-tick :value="8">8:1</b-slider-tick>
-          <b-slider-tick :value="9">9:1</b-slider-tick>
-          <b-slider-tick :value="10">10:1</b-slider-tick>
-        </b-slider>
-      </b-field>
+      <div class="spaced-input">
+        <b-field label="Accuracy">
+          <b-slider v-model="accuracy" step=".001" :value="0.5" :min="0" :max="1">
+            <b-slider-tick :value="0">0%</b-slider-tick>
+            <b-slider-tick :value=".25">25%</b-slider-tick>
+            <b-slider-tick :value=".5">50%</b-slider-tick>
+            <b-slider-tick :value=".75">75%</b-slider-tick>
+            <b-slider-tick :value="1">100%</b-slider-tick>
+          </b-slider>
+        </b-field>
+      </div>
 
-      <b-field label="Risk">
-        <b-slider v-model="risk" step=".001" :value=".02" :min="0" :max=".5">
-          <b-slider-tick :value=".02">2%</b-slider-tick>
-        </b-slider>
-      </b-field>
+      <div class="spaced-input">
+        <b-field label="Profit and Loss Ratio">
+          <b-slider v-model="plRatio" step=".01" :value="2" :min="0" :max="10">
+            <b-slider-tick :value="1">1:1</b-slider-tick>
+            <b-slider-tick :value="2">2:1</b-slider-tick>
+            <b-slider-tick :value="3">3:1</b-slider-tick>
+            <b-slider-tick :value="4">4:1</b-slider-tick>
+            <b-slider-tick :value="5">5:1</b-slider-tick>
+            <b-slider-tick :value="6">6:1</b-slider-tick>
+            <b-slider-tick :value="7">7:1</b-slider-tick>
+            <b-slider-tick :value="8">8:1</b-slider-tick>
+            <b-slider-tick :value="9">9:1</b-slider-tick>
+            <b-slider-tick :value="10">10:1</b-slider-tick>
+          </b-slider>
+        </b-field>
+      </div>
 
-      <br />
+      <div class="spaced-input">
+        <b-field label="Risk">
+          <b-slider v-model="risk" step=".001" :value=".02" :min="0" :max=".5">
+            <b-slider-tick :value=".02">2%</b-slider-tick>
+          </b-slider>
+        </b-field>
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -115,9 +123,9 @@ export default class DayList extends Vue {
 </script>
 
 <style scoped lang="scss">
-// .columns .field .label {
-//   color: white;
-// }
+.spaced-input {
+  padding: 20px 0;
+}
 .columns {
   display: flex;
 }
