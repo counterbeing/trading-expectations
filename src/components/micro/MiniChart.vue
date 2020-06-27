@@ -11,6 +11,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component({})
 export default class MiniChart extends Vue {
   @Prop() private data!: number[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chartOptions: any = {
     grid: {
       show: false,
@@ -19,7 +20,7 @@ export default class MiniChart extends Vue {
       show: false,
     },
     tooltip: {
-      // enabled: false,
+      enabled: false,
     },
     xaxis: {
       labels: {
@@ -30,6 +31,22 @@ export default class MiniChart extends Vue {
       },
     },
 
+    annotations: {
+      yaxis: [
+        {
+          y: this.data[0],
+          borderColor: "#00E396",
+          label: {
+            borderColor: "#00E396",
+            style: {
+              color: "#fff",
+              background: "#00E396",
+            },
+            text: "Starting Bank",
+          },
+        },
+      ],
+    },
     yaxis: {
       forceNiceScale: true,
       min: 0,
@@ -37,6 +54,13 @@ export default class MiniChart extends Vue {
         // show: false,
         formatter: function (value: number): string {
           return "$" + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+        },
+        style: {
+          colors: "white",
+          fontSize: "12px",
+          fontFamily: "Helvetica, Arial, sans-serif",
+          fontWeight: 400,
+          cssClass: "apexcharts-yaxis-label",
         },
       },
     },
@@ -50,6 +74,7 @@ export default class MiniChart extends Vue {
     },
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get series(): any {
     return [
       {
