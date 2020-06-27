@@ -68,7 +68,19 @@
           </b-slider>
         </b-field>
       </div>
-
+    </div>
+    <div class="column-2">
+      <TopTiles
+        :bank="bank"
+        :numberOfTrades="numberOfTrades"
+        :plRatio="plRatio"
+        :risk="risk"
+        :accuracy="accuracy"
+      />
+      <mini-chart :data="analyze.averageResult"></mini-chart>
+      <AnalysisResults :results="analyze" :iterations="iterations" :bank="bank" />
+    </div>
+    <div class="column-3">
       <table>
         <thead>
           <tr>
@@ -85,17 +97,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="column-2">
-      <TopTiles
-        :bank="bank"
-        :numberOfTrades="numberOfTrades"
-        :plRatio="plRatio"
-        :risk="risk"
-        :accuracy="accuracy"
-      />
-      <mini-chart :data="analyze.averageResult"></mini-chart>
-      <AnalysisResults :results="analyze" :iterations="iterations" :bank="bank" />
     </div>
   </div>
 </template>
@@ -172,17 +173,33 @@ export default class DayList extends Vue {
 .column-1 {
   flex: 1;
   padding: 50px;
+  flex: 30%;
 }
 
 .column-2 {
   padding: 50px;
   flex: 1;
-  flex: 20%;
+  flex: 60%;
+}
+
+.column-3 {
+  // padding: 50px;
+  flex: 1;
+  flex: 10%;
+
+  display: flex;
+  table {
+    margin-top: 40px;
+    flex: 1;
+  }
 }
 
 table {
   thead td {
     padding: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
   }
 
   tr {
