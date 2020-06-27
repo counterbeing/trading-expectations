@@ -8,7 +8,7 @@
             :max="500"
             aria-label="Number of Trades"
             :tooltip="false"
-            v-model="iterations"
+            v-model="numberOfTrades"
           >
             <b-slider-tick :value="10">10</b-slider-tick>
             <b-slider-tick :value="100">100</b-slider-tick>
@@ -89,7 +89,7 @@
     <div class="column-2">
       <TopTiles
         :bank="bank"
-        :iterations="iterations"
+        :numberOfTrades="numberOfTrades"
         :plRatio="plRatio"
         :risk="risk"
         :accuracy="accuracy"
@@ -120,32 +120,24 @@ export default class DayList extends Vue {
   public accuracy = 0.5;
   public risk = 0.02;
   public comission = 3.95;
-  public iterations = 100;
-  get test(): number[] {
-    return calculate(
-      this.bank,
-      this.plRatio,
-      this.accuracy,
-      this.risk,
-      this.comission,
-      this.iterations
-    );
-  }
+  public numberOfTrades = 100;
+  public iterations = 1000;
 
   get analyze(): AnalysisResult {
     const results = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < this.iterations; i++) {
       const result = calculate(
         this.bank,
         this.plRatio,
         this.accuracy,
         this.risk,
         this.comission,
-        this.iterations
+        this.numberOfTrades
       );
       results.push({
         finish: result[result.length - 1],
         data: result,
+        profitable: result[result.length - 1] > this.bank,
       });
     }
     const averageFinish = mean(results.map((r) => r.finish));
@@ -155,14 +147,15 @@ export default class DayList extends Vue {
         ? curr
         : prev
     );
-    // const percentProfitable =
+    const percentProfitable =
+      results.filter((r) => r.profitable).length / this.iterations;
     return {
       blowUps: results.filter((r) => r.finish == 0).length,
       max: max(results.map((r) => r.finish)) || 0,
       min: min(results.map((r) => r.finish)) || 0,
       averageFinish,
       averageResult: averageResult.data,
-      percentProfitable: 1,
+      percentProfitable,
     };
   }
 }

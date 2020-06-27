@@ -9,7 +9,7 @@
           </article>
 
           <article class="tile is-child notification" :class="accuracyStatus">
-            <p class="title">{{accuracy}}</p>
+            <p class="title">{{accuracy | percent(1)}}</p>
             <p class="subtitle">Accuracy</p>
           </article>
         </div>
@@ -19,14 +19,14 @@
             <p class="subtitle">Profit and Loss Ratio</p>
           </article>
           <article class="tile is-child notification" :class="riskStatus">
-            <p class="title">{{risk}}</p>
+            <p class="title">{{risk | percent(1)}}</p>
             <p class="subtitle">Risk per Trade</p>
           </article>
         </div>
 
         <div class="tile is-parent is-vertical is-4">
           <article class="tile is-child notification is-info">
-            <p class="title">{{iterations}}</p>
+            <p class="title">{{numberOfTrades}}</p>
             <p class="subtitle">Number of Trades</p>
           </article>
           <article class="tile is-child notification is-info">
@@ -45,7 +45,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component({})
 export default class TopTiles extends Vue {
   @Prop() private bank!: number;
-  @Prop() private iterations!: number;
+  @Prop() private numberOfTrades!: number;
   @Prop() private plRatio!: number;
   @Prop() private risk!: number;
   @Prop() private accuracy!: number;

@@ -4,23 +4,31 @@
       <div class="tile">
         <div class="tile is-parent is-vertical is-4">
           <article class="tile is-child notification" :class="blowUpStatus">
-            <p class="title">{{results.blowUps / iterations | percent}}</p>
-            <p class="subtitle">Percent Blown Up</p>
+            <div class="content-wrap">
+              <p class="title">{{results.blowUps / iterations | percent(1)}}</p>
+              <p class="subtitle">Percent Blown Up</p>
+            </div>
           </article>
 
-          <article class="tile is-child notification" :class="blowUpStatus">
-            <p class="title"></p>
-            <p class="subtitle">Percent Profitable</p>
+          <article class="tile is-child notification" :class="percentProfitableStatus">
+            <div class="content-wrap">
+              <p class="title">{{results.percentProfitable | percent(1)}}</p>
+              <p class="subtitle">Percent Profitable</p>
+            </div>
           </article>
         </div>
         <div class="tile is-parent is-vertical is-4">
           <article class="tile is-child notification" :class="averageGainsStatus">
-            <p class="title">{{averageGains | currency}}</p>
-            <p class="subtitle">Average Gains</p>
+            <div class="content-wrap">
+              <p class="title">{{averageGains | currency}}</p>
+              <p class="subtitle">Average Gains</p>
+            </div>
           </article>
           <article class="tile is-child notification" :class="maxGainsStatus">
-            <p class="title">{{ maxGains| currency}}</p>
-            <p class="subtitle">Maximum Gains</p>
+            <div class="content-wrap">
+              <p class="title">{{ maxGains| currency}}</p>
+              <p class="subtitle">Maximum Gains</p>
+            </div>
           </article>
           <article class="tile is-child notification" :class="minGainsStatus">
             <p class="title">{{ minGains| currency}}</p>
@@ -30,12 +38,11 @@
 
         <div class="tile is-parent is-vertical is-4">
           <article class="tile is-child notification is-info">
-            <p class="title"></p>
-            <p class="subtitle">Number of Trades</p>
-          </article>
-          <article class="tile is-child notification is-info">
-            <p class="title"></p>
-            <p class="subtitle">Commission per Trade</p>
+            <div class="content-wrap">
+              <p class="title">{{iterations}}</p>
+              <p class="subtitle">Number of Iterations</p>
+              <p>How many times we run to get results that should have some statistal significance. The denominator in some calculations.</p>
+            </div>
           </article>
         </div>
       </div>
@@ -56,6 +63,12 @@ export default class AnalysisResults extends Vue {
   get blowUpStatus(): string {
     if (this.results.blowUps > 10) return "is-danger";
     if (this.results.blowUps > 2) return "is-warning";
+    return "is-success";
+  }
+
+  get percentProfitableStatus(): string {
+    if (this.results.percentProfitable < 0.5) return "is-danger";
+    if (this.results.percentProfitable < 0.9) return "is-warning";
     return "is-success";
   }
 
@@ -88,4 +101,13 @@ export default class AnalysisResults extends Vue {
 }
 </script>
 
-
+<style lang="scss">
+.content-wrap {
+  margin: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+</style>
