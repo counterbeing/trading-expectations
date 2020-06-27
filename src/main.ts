@@ -3,7 +3,6 @@ import App from './App.vue';
 import { format, toDate } from 'date-fns';
 
 import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
 
 Vue.use(Buefy);
 

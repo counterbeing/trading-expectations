@@ -7,9 +7,11 @@ const runTrade = (
   const tradeIsWinning = Math.random() < accuracy;
   if (tradeIsWinning) {
     const winnings = bank * risk * plRatio;
+    // console.log(`WIN  pl: ${plRatio}, b: ${bank}, r: ${risk}, w: ${winnings}`);
     return winnings + bank;
   } else {
     const losings = bank * risk;
+    // console.log(`LOSS pl: ${plRatio}, b: ${bank}, r: ${risk} l: ${losings}`);
     return bank - losings;
   }
 };

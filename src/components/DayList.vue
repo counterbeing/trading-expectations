@@ -5,54 +5,67 @@
       <b-field label="Number of Trades">
         <b-slider
           :min="10"
-          :max="10000"
+          :max="500"
           aria-label="Number of Trades"
           :tooltip="false"
           v-model="iterations"
         >
           <b-slider-tick :value="10">10</b-slider-tick>
           <b-slider-tick :value="100">100</b-slider-tick>
+          <b-slider-tick :value="200">200</b-slider-tick>
+          <b-slider-tick :value="300">300</b-slider-tick>
+          <b-slider-tick :value="400">400</b-slider-tick>
           <b-slider-tick :value="500">500</b-slider-tick>
-          <b-slider-tick :value="1000">1000</b-slider-tick>
-          <b-slider-tick :value="5000">5000</b-slider-tick>
         </b-slider>
       </b-field>
       <b-field label="Starting Bank">
-        <b-slider v-model="bank" size="is-large" :value="20" :min="100" :max="10000"></b-slider>
+        <b-slider v-model="bank" :value="20" :min="100" :max="10000">
+          <b-slider-tick :value="20">$20</b-slider-tick>
+          <b-slider-tick :value="2500">$2,500</b-slider-tick>
+          <b-slider-tick :value="5000">$5,000</b-slider-tick>
+          <b-slider-tick :value="7500">$7,500</b-slider-tick>
+          <b-slider-tick :value="10000">$10,000</b-slider-tick>
+        </b-slider>
       </b-field>
 
-      <b-field label="Accurachy">
-        <b-slider v-model="accuracy" size="is-large" step=".001" :value="0.5" :min="0" :max="1"></b-slider>
+      <b-field label="Accuracy">
+        <b-slider v-model="accuracy" step=".001" :value="0.5" :min="0" :max="1">
+          <b-slider-tick :value="0">0%</b-slider-tick>
+          <b-slider-tick :value=".25">25%</b-slider-tick>
+          <b-slider-tick :value=".5">50%</b-slider-tick>
+          <b-slider-tick :value=".75">75%</b-slider-tick>
+          <b-slider-tick :value="1">100%</b-slider-tick>
+        </b-slider>
       </b-field>
       <br />
 
-      <label for="plRatio-input">P/L Ratio</label>
-      <input
-        type="number"
-        step="0.01"
-        v-model="plRatio"
-        id="plRatio-input"
-        placeholder="Profit Loss Ratio"
-      />
-      <br />
+      <b-field label="Profit and Loss Ratio">
+        <b-slider v-model="plRatio" step=".01" :value="2" :min="0" :max="10">
+          <b-slider-tick :value="1">1:1</b-slider-tick>
+          <b-slider-tick :value="2">2:1</b-slider-tick>
+          <b-slider-tick :value="3">3:1</b-slider-tick>
+          <b-slider-tick :value="4">4:1</b-slider-tick>
+          <b-slider-tick :value="5">5:1</b-slider-tick>
+          <b-slider-tick :value="6">6:1</b-slider-tick>
+          <b-slider-tick :value="7">7:1</b-slider-tick>
+          <b-slider-tick :value="8">8:1</b-slider-tick>
+          <b-slider-tick :value="9">9:1</b-slider-tick>
+          <b-slider-tick :value="10">10:1</b-slider-tick>
+        </b-slider>
+      </b-field>
 
-      <label for="accuracy-input">Accuracy</label>
-      <input
-        type="number"
-        step="0.001"
-        v-model="accuracy"
-        id="accuracy-input"
-        placeholder="Accuracy"
-      />
-      <br />
+      <b-field label="Risk">
+        <b-slider v-model="risk" step=".001" :value=".02" :min="0" :max=".5">
+          <b-slider-tick :value=".02">2%</b-slider-tick>
+        </b-slider>
+      </b-field>
 
-      <label for="risk-input">Risk</label>
-      <input type="number" step="0.001" v-model="risk" id="risk-input" placeholder="risk" />
       <br />
       <table>
         <thead>
           <tr>
-            <td>amount</td>
+            <td>Running Total</td>
+            <td>Win or Loss</td>
           </tr>
         </thead>
         <tbody>
@@ -87,7 +100,7 @@ export default class DayList extends Vue {
   public accuracy = 0.5;
   public risk = 0.02;
   public comission = 3.95;
-  public iterations = 10;
+  public iterations = 100;
   get test(): number[] {
     return calculate(
       this.bank,
@@ -102,6 +115,9 @@ export default class DayList extends Vue {
 </script>
 
 <style scoped lang="scss">
+// .columns .field .label {
+//   color: white;
+// }
 .columns {
   display: flex;
 }
