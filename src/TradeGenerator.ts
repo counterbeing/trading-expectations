@@ -27,7 +27,7 @@ const calculate = (
   risk: number,
   commission: number,
   iterations: number,
-) => {
+): number[] => {
   let currentBank = bank;
   const bankHistory = [bank];
 
