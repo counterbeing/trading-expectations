@@ -12,7 +12,7 @@
     "buefy": "^0.8.20",
     "core-js": "^3.6.4",
     "date-fns": "^2.14.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.3",
     "vue-class-component": "^7.2.3",
